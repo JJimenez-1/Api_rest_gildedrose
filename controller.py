@@ -3,11 +3,11 @@ from flask_restful import Resource, Api
 from flask_cors import CORS
 
 from resources.inventario import Inventario
-from resources.updateQuality import UpdateQuality
-from resources.root import Root
-from resources.items import Items
-from resources.quality import Quality
-from resources.sellin import SellIn
+# from resources.updateQuality import UpdateQuality
+# from resources.root import Root
+# from resources.items import Items
+# from resources.quality import Quality
+# from resources.sellin import SellIn
 
 # from config import *
 
