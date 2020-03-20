@@ -22,3 +22,8 @@ class Items(Resource):
         parser.add_argument('quality', type=int, required=True,
                             help='quality required')
         return parser.parse_args()
+
+    def delete(self):
+        args = self.parseRequest()
+        Service.deleteItem(args)
+        return '', 204

@@ -41,3 +41,14 @@ class Service():
         item.sell_in = args['sell_in']
         item.quality = args['quality']
         item.save()
+
+    @staticmethod
+    def deleteItem(args):
+        db = get_db()
+        item = g.Item.objects(Q(name=args['name'])
+                                & Q(sell_in=args['sell_in'])
+                                & Q(quality=args['quality'])).first()
+        if not item:
+            abort(404, message="No existe el item")
+        else:
+            item.delete()
