@@ -24,3 +24,12 @@ class Service():
         for item in g.Item.objects():
             listaItems.append(item)
         return listaItems
+
+    @staticmethod
+    @marshal_with(resource_fields)
+    def getItem(itemName):
+        db = get_db()
+        items = g.Item.objects(name=itemName)
+        if not items:
+            abort(404, message="El item {} no existe".format(itemName))
+        return list(items)
