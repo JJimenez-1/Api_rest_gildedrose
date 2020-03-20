@@ -33,3 +33,11 @@ class Service():
         if not items:
             abort(404, message="El item {} no existe".format(itemName))
         return list(items)
+
+    @staticmethod
+    def postItem(args):
+        db = get_db()
+        item = g.Item(name=args['name'])
+        item.sell_in = args['sell_in']
+        item.quality = args['quality']
+        item.save()
