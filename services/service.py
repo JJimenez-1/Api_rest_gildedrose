@@ -16,12 +16,11 @@ class Service():
             'quality': fields.Integer
     }
 
-@staticmethod
-def inventario():
-    db = get_db()
-    inventario = []
-    for item in g.item.objects():
-        inventario.append(item)
-    return inventario
-
-
+    @staticmethod
+    @marshal_with(resource_fields)
+    def inventario():
+        db = get_db()
+        listaItems = []
+        for item in g.Item.objects():
+            listaItems.append(item)
+        return listaItems
