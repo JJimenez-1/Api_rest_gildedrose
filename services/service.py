@@ -29,9 +29,9 @@ class Service():
     def updateQuality():
         db = get_db()
         for item in g.Item.objects():
-            itemObject = Factory.crearOjbetoItem(
+            itemObject = Factory.crearObjetoItem(
                 [item.name, item.sell_in, item.quality])
-            itemOjbect.update_quality()
+            itemObject.update_quality()
             item.sell_in = itemObject.sell_in
             item.quality = itemObject.quality
             item.save()
