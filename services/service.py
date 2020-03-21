@@ -55,10 +55,16 @@ class Service():
             
     @staticmethod
     @marshal_with(resource_fields)
-    def filterQuality(itemQuality){
+    def filterQuality(itemQuality):
         db = get_db()
         items = g.Item.objects(quality = itemQuality)
         return Service.check(items)
-    }
+
+    @staticmethod
+    def check(items):
+        if not items:
+            abort(404, message = "No existen items que satisfagan el criterio")
+        return list(items)
+    
 
 
