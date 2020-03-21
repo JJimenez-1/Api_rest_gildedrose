@@ -61,6 +61,13 @@ class Service():
         return Service.check(items)
 
     @staticmethod
+    @marshal_with(resource_fields)
+    def filterSell_in(itemSell_in):
+        db = get_db()
+        items = g.Item.objects(sell_in = itemSell_in)
+        return Service.check(items)
+
+    @staticmethod
     def check(items):
         if not items:
             abort(404, message = "No existen items que satisfagan el criterio")
