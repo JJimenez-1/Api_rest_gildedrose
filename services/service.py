@@ -24,3 +24,31 @@ class Service():
         for item in g.Item.objects():
             listaItems.append(item)
         return listaItems
+
+    @staticmethod
+    @marshal_with(resource_fields)
+    def getItem(itemName):
+        db = get_db()
+        items = g.Item.objects(name=itemName)
+        if not items:
+            abort(404, message="El item {} no existe".format(itemName))
+        return list(items)
+
+    @staticmethod
+    def postItem(args):
+        db = get_db()
+        item = g.Item(name=args['name'])
+        item.sell_in = args['sell_in']
+        item.quality = args['quality']
+        item.save()
+
+    @staticmethod
+    def deleteItem(args):
+        db = get_db()
+        item = g.Item.objects(Q(name=args['name'])
+                                & Q(sell_in=args['sell_in'])
+                                & Q(quality=args['quality'])).first()
+        if not item:
+            abort(404, message="No existe el item")
+        else:
+            item.delete()
