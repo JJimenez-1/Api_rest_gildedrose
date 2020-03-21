@@ -35,7 +35,7 @@ class Service():
             item.sell_in = itemObject.sell_in
             item.quality = itemObject.quality
             item.save()
-        return Service.inventario
+        return Service.inventario()
 
     @staticmethod
     @marshal_with(resource_fields)
