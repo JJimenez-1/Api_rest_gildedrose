@@ -52,3 +52,13 @@ class Service():
             abort(404, message="No existe el item")
         else:
             item.delete()
+            
+    @staticmethod
+    @marshal_with(resource_fields)
+    def filterQuality(itemQuality){
+        db = get_db()
+        items = g.Item.objects(quality = itemQuality)
+        return Service.check(items)
+    }
+
+
