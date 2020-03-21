@@ -26,6 +26,18 @@ class Service():
         return listaItems
 
     @staticmethod
+    def updateQuality():
+        db = get_db()
+        for item in g.Item.objects():
+            itemObject = Factory.crearOjbetoItem(
+                [item.name, item.sell_in, item.quality])
+            itemOjbect.update_quality()
+            item.sell_in = itemObject.sell_in
+            item.quality = itemObject.quality
+            item.save()
+        return Service.inventario
+
+    @staticmethod
     @marshal_with(resource_fields)
     def getItem(itemName):
         db = get_db()
@@ -52,26 +64,23 @@ class Service():
             abort(404, message="No existe el item")
         else:
             item.delete()
-            
+
     @staticmethod
     @marshal_with(resource_fields)
     def filterQuality(itemQuality):
         db = get_db()
-        items = g.Item.objects(quality = itemQuality)
+        items = g.Item.objects(quality=itemQuality)
         return Service.check(items)
 
     @staticmethod
     @marshal_with(resource_fields)
     def filterSell_in(itemSell_in):
         db = get_db()
-        items = g.Item.objects(sell_in = itemSell_in)
+        items = g.Item.objects(sell_in=itemSell_in)
         return Service.check(items)
 
     @staticmethod
     def check(items):
         if not items:
-            abort(404, message = "No existen items que satisfagan el criterio")
+            abort(404, message="No existen items que satisfagan el criterio")
         return list(items)
-
-
-    
