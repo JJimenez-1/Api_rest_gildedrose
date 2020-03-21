@@ -4,5 +4,5 @@ from services.service import Service
 
 class Quality(Resource):
     def get(self, itemQuality):
-        return Service.filterQuality(itemQuality)
+        return Service.filterQuality(itemQuality), 200
 
