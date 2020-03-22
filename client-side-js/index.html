@@ -12,7 +12,7 @@
   <body>
 
     <button id="inventario" type="button" class="btn btn-primary">Mostrar todo el inventario</button>
-    
+    <button id="passoneday" type="button" class="btn btn-primary">Pasar un dia</button>
     <div class="col-auto">
         <table class="table table-striped">
             <thead>
@@ -37,8 +37,49 @@
         <button id="reset" type="reset" class="btn btn-primary">Reset</button>
     </form>
     <script>
+        const updateButton = document.querySelector('#passoneday');
+        updateButton.addEventListener("click", updateQuality);
 
-        // GET
+        function updateQuality() {
+
+            var miHeaders = new Headers();
+
+            var miInit = { method: 'GET',
+                           headers: miHeaders,
+                           mode: 'cors',
+                           // cambiarlo a force-cache => carga del disco
+                           cache: 'default' };
+
+
+            fetch('http://127.0.0.1:5000/update-quality', miInit)
+                .then((response) => {
+                    if(response.ok) {
+                        console.log("Response Status:", response.status);
+                        console.log("Reponse statuts text:", response.statusText);
+                        response.json().then((json) => logItemsUpdated(json))
+                    } else {
+                        console.log("Response Status:", response.status);
+                        console.log("Reponse statuts text:", response.statusText);  
+                    }  
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });
+        }
+
+        // intentar cachear con la cabecera mirando network de chrome
+
+        function logItemsUpdated(items) {
+            const itemsList = document.querySelector('#Items');
+            Items.innerHTML = items.map((item, i) => {
+                return `
+                        <tr> <td> ${item.name} </td> 
+                            <td> ${item.sell_in}  </td>
+                            <td> ${item.quality}  </td>
+                        </tr>
+                        `;
+            }).join('');
+        }
 
         const inventButton = document.querySelector('#inventario');
         inventButton.addEventListener("click", inventario);
@@ -221,9 +262,7 @@
                          formulario.elements.sell_in.value,
                          formulario.elements.quality.value);
         }
-
     </script>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
