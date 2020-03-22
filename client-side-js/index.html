@@ -29,12 +29,21 @@
     </div>
 
     <form class="add-item">
-        <input id="name" name="name" type="text"/>
-        <input id="sellin" name="sell_in" type="text"/>
-        <input id="quality" name="quality" type="text"/>
+        <input id="name" name="name" placerholder="Nombre item" type="text"/>
+        <input id="sellin" name="sell_in" placeholder="Sellin" type="text"/>
+        <input id="quality" name="quality" placeholder="Calidad" type="text"/>
         <button id="addItem" type="submit" class="btn btn-primary">Añadir Item</button>
         <button id="deleteItem" type="button" class="btn btn-primary">Eliminar Item</button>
         <button id="reset" type="reset" class="btn btn-primary">Reset</button>
+    </form>
+    <form class="add-item">
+        <input id="sellinorquality" name="number" type="number"/>
+        <button id="searchquality" type="button" class="btn btn-primary">Buscar por calidad</button>
+        <button id="searchsellin" type="button" class="btn btn-primary">Buscar por fecha caducidad</button>
+    </form>
+    <form class="add-item">
+        <input id="nameItem" name="nameItem" type="text"/>
+        <button id="searchsellin" type="submit" class="btn btn-primary">Buscar nombre item</button>
     </form>
     <script>
         const updateButton = document.querySelector('#passoneday');
@@ -47,7 +56,6 @@
             var miInit = { method: 'GET',
                            headers: miHeaders,
                            mode: 'cors',
-                           // cambiarlo a force-cache => carga del disco
                            cache: 'default' };
 
 
@@ -66,8 +74,6 @@
                     console.log(error.message);
                 });
         }
-
-        // intentar cachear con la cabecera mirando network de chrome
 
         function logItemsUpdated(items) {
             const itemsList = document.querySelector('#Items');
@@ -91,7 +97,6 @@
             var miInit = { method: 'GET',
                            headers: miHeaders,
                            mode: 'cors',
-                           // cambiarlo a force-cache => carga del disco
                            cache: 'default' };
 
 
@@ -110,8 +115,6 @@
                     console.log(error.message);
                 });
         }
-
-        // intentar cachear con la cabecera mirando network de chrome
 
         function logItems(items) {
             const itemsList = document.querySelector('#Items');
@@ -261,6 +264,47 @@
             console.log( formulario.elements.name.value,
                          formulario.elements.sell_in.value,
                          formulario.elements.quality.value);
+        }
+
+        const sellinButton = document.querySelector('#searchsellin');
+        sellinButton.addEventListener("click", sellin);
+
+        function sellin() {
+
+            var miHeaders = new Headers();
+
+            var miInit = { method: 'GET',
+                           headers: miHeaders,
+                           mode: 'cors',
+                           cache: 'default' };
+
+            let variablecalidad = document.getElementById("sellinorquality").value;
+            fetch('http://127.0.0.1:5000/items/sellin/' + variablecalidad, miInit)
+                .then((response) => {
+                    if(response.ok) {
+                        console.log("Response Status:", response.status);
+                        console.log("Reponse statuts text:", response.statusText);
+                        response.json().then((json) => logItems(json))
+                    } else {
+                        console.log("Response Status:", response.status);
+                        console.log("Reponse statuts text:", response.statusText);  
+                    }  
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });
+        }
+
+        function sellinItems(items) {
+            const itemsList = document.querySelector('#Items');
+            Items.innerHTML = items.map((item, i) => {
+                return `
+                        <tr> <td> ${item.name} </td> 
+                            <td> ${item.sell_in}  </td>
+                            <td> ${item.quality}  </td>
+                        </tr>
+                        `;
+            }).join('');
         }
     </script>
     <!-- Optional JavaScript -->
