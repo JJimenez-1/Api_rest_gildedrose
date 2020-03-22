@@ -46,7 +46,7 @@
     </form>
     <form class="add-item4">
         <input id="nameItem" name="nameItem" type="text"/>
-        <button id="searchsellin" type="submit" class="btn btn-primary">Buscar nombre item</button>
+        <button id="searchName" type="button" class="btn btn-primary">Buscar nombre item</button>
     </form>
     <script>
         const updateButton = document.querySelector('#passoneday');
@@ -340,6 +340,47 @@
         }
 
         function QualityItems(items) {
+            const itemsList = document.querySelector('#Items');
+            Items.innerHTML = items.map((item, i) => {
+                return `
+                        <tr> <td> ${item.name} </td> 
+                            <td> ${item.sell_in}  </td>
+                            <td> ${item.quality}  </td>
+                        </tr>
+                        `;
+            }).join('');
+        }
+        
+        const nameButton = document.querySelector('#searchName');
+        nameButton.addEventListener("click", name);
+
+        function name() {
+
+            var miHeaders = new Headers();
+
+            var miInit = { method: 'GET',
+                           headers: miHeaders,
+                           mode: 'cors',
+                           cache: 'default' };
+
+            let variablecalidad = document.getElementById("nameItem").value;
+            fetch('http://127.0.0.1:5000/items/name/' + variablecalidad, miInit)
+                .then((response) => {
+                    if(response.ok) {
+                        console.log("Response Status:", response.status);
+                        console.log("Reponse statuts text:", response.statusText);
+                        response.json().then((json) => logItems(json))
+                    } else {
+                        console.log("Response Status:", response.status);
+                        console.log("Reponse statuts text:", response.statusText);  
+                    }  
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });
+        }
+
+        function NombreItems(items) {
             const itemsList = document.querySelector('#Items');
             Items.innerHTML = items.map((item, i) => {
                 return `
