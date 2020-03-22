@@ -36,12 +36,15 @@
         <button id="deleteItem" type="button" class="btn btn-primary">Eliminar Item</button>
         <button id="reset" type="reset" class="btn btn-primary">Reset</button>
     </form>
-    <form class="add-item">
-        <input id="sellinorquality" name="number" type="number"/>
-        <button id="searchquality" type="button" class="btn btn-primary">Buscar por calidad</button>
+    <form class="add-item2">
+        <input id="sellinItem" name="number" type="number"/>
         <button id="searchsellin" type="button" class="btn btn-primary">Buscar por fecha caducidad</button>
     </form>
-    <form class="add-item">
+    <form class="add-item3">
+        <input id="qualityItem" name="number" type="number"/>
+        <button id="searchquality" type="button" class="btn btn-primary">Buscar por calidad</button>
+    </form>
+    <form class="add-item4">
         <input id="nameItem" name="nameItem" type="text"/>
         <button id="searchsellin" type="submit" class="btn btn-primary">Buscar nombre item</button>
     </form>
@@ -278,7 +281,7 @@
                            mode: 'cors',
                            cache: 'default' };
 
-            let variablecalidad = document.getElementById("sellinorquality").value;
+            let variablecalidad = document.getElementById("sellinItem").value;
             fetch('http://127.0.0.1:5000/items/sellin/' + variablecalidad, miInit)
                 .then((response) => {
                     if(response.ok) {
@@ -296,6 +299,47 @@
         }
 
         function sellinItems(items) {
+            const itemsList = document.querySelector('#Items');
+            Items.innerHTML = items.map((item, i) => {
+                return `
+                        <tr> <td> ${item.name} </td> 
+                            <td> ${item.sell_in}  </td>
+                            <td> ${item.quality}  </td>
+                        </tr>
+                        `;
+            }).join('');
+        }
+
+        const qualityButton = document.querySelector('#searchquality');
+        qualityButton.addEventListener("click", quality);
+
+        function quality() {
+
+            var miHeaders = new Headers();
+
+            var miInit = { method: 'GET',
+                           headers: miHeaders,
+                           mode: 'cors',
+                           cache: 'default' };
+
+            let variablecalidad = document.getElementById("qualityItem").value;
+            fetch('http://127.0.0.1:5000/items/quality/' + variablecalidad, miInit)
+                .then((response) => {
+                    if(response.ok) {
+                        console.log("Response Status:", response.status);
+                        console.log("Reponse statuts text:", response.statusText);
+                        response.json().then((json) => logItems(json))
+                    } else {
+                        console.log("Response Status:", response.status);
+                        console.log("Reponse statuts text:", response.statusText);  
+                    }  
+                })
+                .catch((error) => {
+                    console.log(error.message);
+                });
+        }
+
+        function QualityItems(items) {
             const itemsList = document.querySelector('#Items');
             Items.innerHTML = items.map((item, i) => {
                 return `
