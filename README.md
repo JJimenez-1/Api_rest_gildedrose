@@ -1,3 +1,9 @@
+# TODO MOSTRADO AQUI ES PARTE DEL RECURSO COMPARTIDO DE https://github.com/dfleta/api-rest-gildedrose
+# Los contribuidores del actual repositorio, solo han modificado código de parte de:
+## Resources
+## Services
+## client-side-js
+
 # API REST con Flask y Mongo Atlas
 
 ## Instala el proyecto
