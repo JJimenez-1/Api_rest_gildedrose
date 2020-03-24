@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <title>Ollivander Shop - Api Rest</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -8,8 +9,14 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  </head>
-  <body>
+</head>
+
+<body>
+    <header>
+        <div class="mx-auto" style="width: 600px;">
+            <img src="logo/logo.PNG" alt="">
+        </div>
+    </header>
 
     <button id="inventario" type="button" class="btn btn-primary">Mostrar todo el inventario</button>
     <button id="passoneday" type="button" class="btn btn-primary">Actualizar</button>
@@ -17,35 +24,35 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Sell_in</th>
-                  <th scope="col">Quality</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Sell_in</th>
+                    <th scope="col">Quality</th>
                 </tr>
             </thead>
             <tbody id="Items">
-    
+
             </tbody>
         </table>
     </div>
 
     <form class="add-item">
-        <input id="name" name="name" placerholder="Nombre item" type="text"/>
-        <input id="sellin" name="sell_in" placeholder="Sellin" type="text"/>
-        <input id="quality" name="quality" placeholder="Calidad" type="text"/>
+        <input id="name" name="name" placerholder="Nombre item" type="text" />
+        <input id="sellin" name="sell_in" placeholder="Sellin" type="text" />
+        <input id="quality" name="quality" placeholder="Calidad" type="text" />
         <button id="addItem" type="submit" class="btn btn-primary">Añadir Item</button>
         <button id="deleteItem" type="button" class="btn btn-primary">Eliminar Item</button>
         <button id="reset" type="reset" class="btn btn-primary">Reset</button>
     </form>
     <form class="add-item2">
-        <input id="sellinItem" name="number" type="number"/>
+        <input id="sellinItem" name="number" type="number" />
         <button id="searchsellin" type="button" class="btn btn-primary">Buscar por fecha caducidad</button>
     </form>
     <form class="add-item3">
-        <input id="qualityItem" name="number" type="number"/>
+        <input id="qualityItem" name="number" type="number" />
         <button id="searchquality" type="button" class="btn btn-primary">Buscar por calidad</button>
     </form>
     <form class="add-item4">
-        <input id="nameItem" name="nameItem" type="text"/>
+        <input id="nameItem" name="nameItem" type="text" />
         <button id="searchName" type="button" class="btn btn-primary">Buscar nombre item</button>
     </form>
     <script>
@@ -56,22 +63,24 @@
 
             var miHeaders = new Headers();
 
-            var miInit = { method: 'GET',
-                           headers: miHeaders,
-                           mode: 'cors',
-                           cache: 'default' };
+            var miInit = {
+                method: 'GET',
+                headers: miHeaders,
+                mode: 'cors',
+                cache: 'default'
+            };
 
 
             fetch('http://127.0.0.1:5000/update-quality', miInit)
                 .then((response) => {
-                    if(response.ok) {
+                    if (response.ok) {
                         console.log("Response Status:", response.status);
                         console.log("Reponse statuts text:", response.statusText);
                         response.json().then((json) => logItemsUpdated(json))
                     } else {
                         console.log("Response Status:", response.status);
-                        console.log("Reponse statuts text:", response.statusText);  
-                    }  
+                        console.log("Reponse statuts text:", response.statusText);
+                    }
                 })
                 .catch((error) => {
                     console.log(error.message);
@@ -97,22 +106,24 @@
 
             var miHeaders = new Headers();
 
-            var miInit = { method: 'GET',
-                           headers: miHeaders,
-                           mode: 'cors',
-                           cache: 'default' };
+            var miInit = {
+                method: 'GET',
+                headers: miHeaders,
+                mode: 'cors',
+                cache: 'default'
+            };
 
 
             fetch('http://127.0.0.1:5000/inventario', miInit)
                 .then((response) => {
-                    if(response.ok) {
+                    if (response.ok) {
                         console.log("Response Status:", response.status);
                         console.log("Reponse statuts text:", response.statusText);
                         response.json().then((json) => logItems(json))
                     } else {
                         console.log("Response Status:", response.status);
-                        console.log("Reponse statuts text:", response.statusText);  
-                    }  
+                        console.log("Reponse statuts text:", response.statusText);
+                    }
                 })
                 .catch((error) => {
                     console.log(error.message);
@@ -138,17 +149,19 @@
             e.preventDefault();
             logForm();
 
-            let data = { name: this.elements.name.value,
-                         sell_in: this.elements.sell_in.value,
-                         quality: this.elements.quality.value};
+            let data = {
+                name: this.elements.name.value,
+                sell_in: this.elements.sell_in.value,
+                quality: this.elements.quality.value
+            };
 
             fetch('http://127.0.0.1:5000/items', {
-                method: 'POST', // or 'PUT'
-                body: JSON.stringify(data), // data can be `string` or {object}!
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+                    method: 'POST', // or 'PUT'
+                    body: JSON.stringify(data), // data can be `string` or {object}!
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
                 .then((response) => {
                     if (response.ok) {
                         console.log("Response OK Status:", response.status);
@@ -168,17 +181,19 @@
         function deleteItem() {
             logForm();
 
-            let data = { name: formulario.elements.name.value,
-                         sell_in: formulario.elements.sell_in.value,
-                         quality: formulario.elements.quality.value };
+            let data = {
+                name: formulario.elements.name.value,
+                sell_in: formulario.elements.sell_in.value,
+                quality: formulario.elements.quality.value
+            };
 
             fetch('http://127.0.0.1:5000/items', {
-                method: 'DELETE',
-                body: JSON.stringify(data), 
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+                    method: 'DELETE',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
                 .then((response) => {
                     if (response.ok) {
                         console.log("Response OK Status:", response.status);
@@ -193,17 +208,19 @@
                 });
         }
 
-        
+
         function deleteItemPromise() {
             logForm();
 
-            let data = { name: formulario.elements.name.value,
-                         sell_in: formulario.elements.sell_in.value,
-                         quality: formulario.elements.quality.value };
-            
+            let data = {
+                name: formulario.elements.name.value,
+                sell_in: formulario.elements.sell_in.value,
+                quality: formulario.elements.quality.value
+            };
+
             const promesa = new Promise((resolve, reject) => {
-                    
-                    fetch('http://127.0.0.1:5000/items', {
+
+                fetch('http://127.0.0.1:5000/items', {
                         method: 'DELETE',
                         body: JSON.stringify(data), // data can be `string` or {object}!
                         headers: {
@@ -212,28 +229,30 @@
                     })
                     .then((response) => {
                         if (response.ok) {
-                            setTimeout(() => { resolve(response.statusText)}, 5000);
+                            setTimeout(() => {
+                                resolve(response.statusText)
+                            }, 5000);
                         } else {
                             reject(response.statusText);
                         }
                     })
-                });
-            
-            promesa.then(statusText => console.log(`"Item eliminado: ${statusText}`))
-                   .then(() => inventario())
-                   .catch((statusText) => {
-                        console.log(`Item NO borrado: ${statusText}`);
-                    });
+            });
 
-            console.log("El código sigue sin esperar al setTimeout");              
+            promesa.then(statusText => console.log(`"Item eliminado: ${statusText}`))
+                .then(() => inventario())
+                .catch((statusText) => {
+                    console.log(`Item NO borrado: ${statusText}`);
+                });
+
+            console.log("El código sigue sin esperar al setTimeout");
         }
 
 
         function logForm() {
             let formulario = document.querySelector('.add-item');
-            console.log( formulario.elements.name.value,
-                         formulario.elements.sell_in.value,
-                         formulario.elements.quality.value);
+            console.log(formulario.elements.name.value,
+                formulario.elements.sell_in.value,
+                formulario.elements.quality.value);
         }
 
         const sellinButton = document.querySelector('#searchsellin');
@@ -243,22 +262,24 @@
 
             var miHeaders = new Headers();
 
-            var miInit = { method: 'GET',
-                           headers: miHeaders,
-                           mode: 'cors',
-                           cache: 'default' };
+            var miInit = {
+                method: 'GET',
+                headers: miHeaders,
+                mode: 'cors',
+                cache: 'default'
+            };
 
             let variablecalidad = document.getElementById("sellinItem").value;
             fetch('http://127.0.0.1:5000/items/sellin/' + variablecalidad, miInit)
                 .then((response) => {
-                    if(response.ok) {
+                    if (response.ok) {
                         console.log("Response Status:", response.status);
                         console.log("Reponse statuts text:", response.statusText);
                         response.json().then((json) => logItems(json))
                     } else {
                         console.log("Response Status:", response.status);
-                        console.log("Reponse statuts text:", response.statusText);  
-                    }  
+                        console.log("Reponse statuts text:", response.statusText);
+                    }
                 })
                 .catch((error) => {
                     console.log(error.message);
@@ -284,22 +305,24 @@
 
             var miHeaders = new Headers();
 
-            var miInit = { method: 'GET',
-                           headers: miHeaders,
-                           mode: 'cors',
-                           cache: 'default' };
+            var miInit = {
+                method: 'GET',
+                headers: miHeaders,
+                mode: 'cors',
+                cache: 'default'
+            };
 
             let variablecalidad = document.getElementById("qualityItem").value;
             fetch('http://127.0.0.1:5000/items/quality/' + variablecalidad, miInit)
                 .then((response) => {
-                    if(response.ok) {
+                    if (response.ok) {
                         console.log("Response Status:", response.status);
                         console.log("Reponse statuts text:", response.statusText);
                         response.json().then((json) => logItems(json))
                     } else {
                         console.log("Response Status:", response.status);
-                        console.log("Reponse statuts text:", response.statusText);  
-                    }  
+                        console.log("Reponse statuts text:", response.statusText);
+                    }
                 })
                 .catch((error) => {
                     console.log(error.message);
@@ -317,7 +340,7 @@
                         `;
             }).join('');
         }
-        
+
         const nameButton = document.querySelector('#searchName');
         nameButton.addEventListener("click", name);
 
@@ -325,22 +348,24 @@
 
             var miHeaders = new Headers();
 
-            var miInit = { method: 'GET',
-                           headers: miHeaders,
-                           mode: 'cors',
-                           cache: 'default' };
+            var miInit = {
+                method: 'GET',
+                headers: miHeaders,
+                mode: 'cors',
+                cache: 'default'
+            };
 
             let variablecalidad = document.getElementById("nameItem").value;
             fetch('http://127.0.0.1:5000/items/name/' + variablecalidad, miInit)
                 .then((response) => {
-                    if(response.ok) {
+                    if (response.ok) {
                         console.log("Response Status:", response.status);
                         console.log("Reponse statuts text:", response.statusText);
                         response.json().then((json) => logItems(json))
                     } else {
                         console.log("Response Status:", response.status);
-                        console.log("Reponse statuts text:", response.statusText);  
-                    }  
+                        console.log("Reponse statuts text:", response.statusText);
+                    }
                 })
                 .catch((error) => {
                     console.log(error.message);
@@ -364,5 +389,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+</body>
+
 </html>
