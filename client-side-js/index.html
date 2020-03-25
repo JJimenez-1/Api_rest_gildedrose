@@ -12,49 +12,90 @@
 </head>
 
 <body>
-    <header>
-        <div class="mx-auto" style="width: 600px;">
+    <div class="mx-auto" style="width: 500px;">
+        <header>
             <img src="logo/logo.PNG" alt="">
-        </div>
-    </header>
-
-    <button id="inventario" type="button" class="btn btn-primary">Mostrar todo el inventario</button>
-    <button id="passoneday" type="button" class="btn btn-primary">Actualizar</button>
-    <div class="mx-auto" style="width: 75%;">
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Sell_in</th>
-                    <th scope="col">Quality</th>
-                </tr>
-            </thead>
-            <tbody id="Items">
-
-            </tbody>
-        </table>
+        </header>
     </div>
+    <br><br>
+    <div class="mx-auto" style="width: 780px;">
+        <form class="add-item">
+            <div>
+                <div>
+                    <label><h5>Inserta datos del item:</h5></label>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button id="reset" type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                    <input id="name" name="name" placeholder="Name" type="text" />
+                    <input id="sellin" name="sell_in" placeholder="Sell In" type="text" />
+                    <input id="quality" name="quality" placeholder="Quality" type="text" /> &nbsp;&nbsp;
+                    <button id="addItem" type="submit" class="btn btn-primary">Add</button> &nbsp;
+                    <button id="deleteItem" type="button" class="btn btn-danger">Drop</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br><br>
+    <div class="row mx-md-n5">
+        <div class="col px-md-5">
+            <div class="p-3 border bg-light" style="width: 1090px;">
+                <div class="col-auto">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Sell_in</th>
+                                <th scope="col">Quality</th>
+                            </tr>
+                        </thead>
+                        <tbody id="Items">
 
-    <form class="add-item">
-        <input id="name" name="name" placerholder="Nombre item" type="text" />
-        <input id="sellin" name="sell_in" placeholder="Sellin" type="text" />
-        <input id="quality" name="quality" placeholder="Calidad" type="text" />
-        <button id="addItem" type="submit" class="btn btn-primary">Añadir Item</button>
-        <button id="deleteItem" type="button" class="btn btn-primary">Eliminar Item</button>
-        <button id="reset" type="reset" class="btn btn-primary">Reset</button>
-    </form>
-    <form class="add-item2">
-        <input id="sellinItem" name="number" type="number" />
-        <button id="searchsellin" type="button" class="btn btn-primary">Buscar por fecha caducidad</button>
-    </form>
-    <form class="add-item3">
-        <input id="qualityItem" name="number" type="number" />
-        <button id="searchquality" type="button" class="btn btn-primary">Buscar por calidad</button>
-    </form>
-    <form class="add-item4">
-        <input id="nameItem" name="nameItem" type="text" />
-        <button id="searchName" type="button" class="btn btn-primary">Buscar nombre item</button>
-    </form>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col px-md-5">
+            <div class="p-3 border bg-light" style="width: 500px;">
+                <div class="mx-auto" style="width: 200px;">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button id="inventario" type="button" class="btn btn-secondary">Mostrar</button>
+                        <button id="passoneday" type="button" class="btn btn-secondary">Actualizar</button>
+                    </div>
+                </div>
+                <br><br>
+                <div>
+                    <label><h5>Búsqueda de Items</h5></label>
+                </div>
+                <form class="add-item2">
+                    <div class="input-group mb-3">
+                        <input id="sellinItem" type="text" class="form-control" placeholder="Insert Sell In" aria-label="Insert Sell In" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" id="searchsellin">Search</button>
+                        </div>
+                    </div>
+                </form>
+                <form class="add-item3">
+                    <div class="input-group mb-3">
+                        <input id="qualityItem" type="text" class="form-control" placeholder="Insert Quality" aria-label="Insert Quality" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" id="searchquality">Search</button>
+                        </div>
+                    </div>
+                </form>
+                <form class="add-item4">
+                    <div class="input-group mb-3">
+                        <input id="nameItem" type="text" class="form-control" placeholder="Insert Name" aria-label="Insert Name" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" id="searchName">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <script>
         const updateButton = document.querySelector('#passoneday');
         updateButton.addEventListener("click", updateQuality);
